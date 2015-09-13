@@ -1,0 +1,16 @@
+.login-info-wrapper {
+  align-items: center;
+  display: flex;
+}
+
+.login-cta {
+  color: $text-color-alternative;
+}
+
+.login-info-text {
+  text-align: center;
+
+  @media (min-width: 48em) {
+    text-align: right;
+  }
+}

@@ -7,12 +7,41 @@
     <title>Voting App</title>
 
     <link rel="stylesheet" href="assets/libs/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/build/style.min.css">
 </head>
 <body>
+<div class="container-fluid navigation-bar m-b-md">
+    <nav class="container navbar">
+        <a href="#/" class="navbar-brand">Vote App</a>
 
+        <ul class="nav navbar-nav pull-right">
+            <li class="nav-item">
+                <a href="#/" class="nav-link">Home</a>
+            </li>
 
-<div ng-view></div>
+            <li class="nav-item">
+                <a href="#/polls" class="nav-link">Polls</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#/signin" class="nav-link">Sign in</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="col-md-3 col-md-push-9" login></div>
+
+    <div class="col-md-9 col-md-pull-3" ng-view>
+
+    </div>
+</div>
+
+<footer class="m-t-lg text-center">
+    Created by <a href="http://voreny.bitbucket.org/">Voreny</a>
+</footer>
 
 <script src="assets/libs/jquery.min.js"></script>
 <script src="assets/libs/angular.min.js"></script>

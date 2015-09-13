@@ -5,5 +5,7 @@
 ## TODO ##
 * layout
 * database
+* designing the whole voting system
+* graphing the results
 * linking it together
 * posting it on FreeCodeCamp

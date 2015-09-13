@@ -1,0 +1,24 @@
+@import 'variables';
+@import 'mixins';
+@import 'fonts';
+
+body {
+  background-color: $bg-color;
+
+  color: $text-color;
+
+  font-family: 'Lora', serif;
+}
+
+a:link,
+a:visited {
+  color: $link-color;
+}
+
+a:hover {
+  color: $link-hover-color;
+}
+
+
+@import 'navigation';
+@import 'main-page';

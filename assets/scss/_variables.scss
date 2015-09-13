@@ -1,0 +1,26 @@
+$bg-color: #302a77;
+$bg-color-alternative: #5457a6;
+
+$text-color-base: #f1e6d1;
+$text-color-alternative-base: #eb5;
+
+$link-navbar-hover-color-base: #fff98c;
+
+//$link-color-base: #338275;
+//$link-hover-color-base: #88b990;
+
+$link-color-base: #88b990;
+$link-hover-color-base: #abcd9e;
+
+
+
+// transparentized
+$transparentize-by: .13;
+
+$text-color: transparentize($text-color-base, $transparentize-by);
+$text-color-alternative: transparentize($text-color-alternative-base, $transparentize-by);
+
+$link-navbar-hover-color: transparentize($link-hover-color-base, $transparentize-by);
+
+$link-color: transparentize($link-color-base, $transparentize-by);
+$link-hover-color: transparentize($link-hover-color-base, $transparentize-by);

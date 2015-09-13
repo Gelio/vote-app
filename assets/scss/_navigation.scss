@@ -1,0 +1,15 @@
+.navigation-bar {
+  background-color: $bg-color-alternative;
+}
+
+.nav-link,
+.navbar-brand {
+  &:link,
+  &:visited {
+    color: $text-color-alternative;
+  }
+
+  &:hover {
+    color: $link-navbar-hover-color;
+  }
+}
