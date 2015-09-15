@@ -3,6 +3,8 @@ require_once("../../vendor/autoload.php");
 require_once("config.inc.php");
 use \Firebase\JWT\JWT;
 
+
+// Remove this after moving onto a server
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && (
             $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'POST' ||
