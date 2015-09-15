@@ -14,6 +14,7 @@ sidebarModule.controller('sidebarCtrl', ['$scope', '$http', 'AuthFactory', funct
         password: ''
     };
 
+
     $scope.login = function() {
         AuthFactory.login($scope.credentials);
     };

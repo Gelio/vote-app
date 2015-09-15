@@ -1,10 +1,20 @@
-angular.module('authService', []).
-    factory('AuthFactory', ['$http', function($http) {
+angular.module('authService', ['satellizer']).
+    factory('AuthFactory', ['$http', '$auth', function($http, $auth) {
         var auth = {
 
         };
 
+
         auth.login = function(credentials) {
+            console.log(credentials);
+            $auth.login(credentials)
+                .then(function(response) {
+                    console.log("successful", response);
+                })
+                .catch(function(error) {
+                    console.log("error", error);
+                });
+            /*
             $http.post('assets/php/response.txt', {
                 email: credentials.email,
                 password: credentials.password
@@ -24,6 +34,7 @@ angular.module('authService', []).
                     // error
                     console.log('error logging in', response);
                 });
+            */
         };
 
         return auth;
