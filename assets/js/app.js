@@ -1,11 +1,22 @@
-define(['angular', 'jquery', 'angular-route', 'assets/js/class-poll', 'assets/js/login-module', 'assets/js/main-module'], function(angular, $){
-    var app = angular.module('voteApp', ['ngRoute', 'loginModule', 'mainModule']);
+(function(){
+    var app = angular.module('voteApp', ['ui.router', 'authService', 'mainModule', 'sidebarModule']);
 
-    app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-        $routeProvider.when('/', {
-            templateUrl: 'assets/templates/main-page.html',
-            controller: 'MainCtrl'
-        })
-            .otherwise('/');
+
+    //uiRouter
+    app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise("/");
+
+        $stateProvider
+            .state('main', {
+                url: '/',
+                templateUrl: 'assets/templates/main-page.html',
+                controller: 'mainCtrl'
+            });
     }]);
-});
+
+    app.controller("appCtrl", ["$scope", function($scope) {
+        $scope.username = "";
+    }]);
+
+    angular.bootstrap(document, ["voteApp"]);
+})();
