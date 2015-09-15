@@ -43,9 +43,13 @@
     Created by <a href="http://voreny.bitbucket.org/">Voreny</a>
 </footer>
 
-<script src="assets/libs/jquery.min.js"></script>
-<script src="assets/libs/angular.min.js"></script>
-<script src="assets/libs/angular-route.min.js"></script>
-<script src="assets/build/script.min.js"></script>
+
+<!-- Require.js -->
+<script data-main="assets/js/common" src="assets/libs/require.js"></script>
+<script>
+    require(['common'], function() {
+        require(['assets/js/app']);
+    });
+</script>
 </body>
 </html>

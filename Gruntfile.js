@@ -89,7 +89,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-scss-lint');
 
 
-    grunt.registerTask('compile-js', ['clean:js', 'jshint', 'uglify']);
+    grunt.registerTask('compile-js', ['clean:js', 'jshint'/*, 'uglify'*/]);
     grunt.registerTask('compile-scss', ['clean:css', 'scsslint', 'sass', 'autoprefixer', 'cssmin']);
     grunt.registerTask('default', ['compile-js', 'compile-scss']);
 
