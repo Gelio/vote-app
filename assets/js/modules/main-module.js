@@ -1,6 +1,6 @@
 var mainModule = angular.module('mainModule', ['authService']);
 
-mainModule.controller('mainCtrl', ['$scope', 'AuthFactory', function($scope, AuthFactory) {
+mainModule.controller('mainCtrl', ['$scope', 'AuthService', function($scope, AuthService) {
     $scope.popularPolls = [
         new Poll('Poll 1', [
             {name: 'option 1', amount: 20},

@@ -1,16 +1,37 @@
-<div class="row text-center">
-    <h3>Login</h3>
-</div>
-<form>
-    <div class="m-b">
-        <input type="text" name="email" class="form-control" placeholder="E-mail address" required ng-model="credentials.email">
+<!--Login section for unauthenticated users -->
+<section class="sidebar sidebar-login" ng-show="!isAuthenticated()">
+    <div class="row text-center">
+        <h3>Login</h3>
     </div>
+    <form>
+        <div class="m-b">
+            <input type="text" name="email" class="form-control" placeholder="E-mail address" required ng-model="credentials.email">
+        </div>
 
-    <div class="m-b">
-        <input type="password" name="password" class="form-control" placeholder="Password" required ng-model="credentials.password">
-    </div>
+        <div class="m-b">
+            <input type="password" name="password" class="form-control" placeholder="Password" required ng-model="credentials.password">
+        </div>
 
-    <div class="text-center">
-        <input type="submit" value="Log in" class="form-control inline-block" ng-click="login()">
+        <div class="text-center">
+            <input type="submit" value="Log in" class="form-control inline-block" ng-click="login()">
+        </div>
+    </form>
+
+    <div class="sidebar-oauth-sign-in text-center">
+        <a ui-sref="sign-in" class="btn btn-primary-outline" role="button">Sign in with social media</a>
     </div>
-</form>
+</section>
+
+<!-- Settings section for authenticated users -->
+<section class="sidebar sidebar-settings" ng-show="isAuthenticated()">
+    <div class="row text-center">
+        <h3>Hello {{authPayload.username}}</h3>
+    </div>
+    <ul>
+        <li><a ui-sref="logout">Log out</a></li>
+    </ul>
+</section>
+
+{{isAuthenticated()}}
+
+<button role="button" ng-click="logTokenInfo()">Log token info</button>

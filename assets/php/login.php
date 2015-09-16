@@ -4,22 +4,7 @@ require_once("config.inc.php");
 use \Firebase\JWT\JWT;
 
 
-// Remove this after moving onto a server
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && (
-            $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'POST' ||
-            $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'DELETE' ||
-            $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'PUT' )) {
-        header('Access-Control-Allow-Origin: *');
-        header("Access-Control-Allow-Credentials: true");
-        header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Authorization');
-        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT'); // http://stackoverflow.com/a/7605119/578667
-        header('Access-Control-Max-Age: 86400');
-    }
-    exit;
-}
-
-header('Access-Control-Allow-Origin: *');
+require_once('cors-headers.inc.php');
 
 $headerBody = file_get_contents("php://input");
 if(is_string($headerBody))
@@ -32,19 +17,38 @@ if(is_string($headerBody))
 		$password = $parsedBody['password'];
 
 		if(!empty($email) && !empty($password)) {
-			if($email == "abc@example.com" && $password == "abc") {
-				$data = [
-					'iss' => 'localhost',
-					'exp' => time()+$expireTime,
-					'id' => 1,
-					'email' => $email,
-					'admin' => false
-				];
-				$jwt = JWT::encode($data, $secretKey, 'HS256');
+            try {
+                $dbh = new PDO($dbn, $database['user'], $database['password']);
+            }
+            catch (PDOException $e) {
+                fwrite($output, "Connection failed: ".$e->getMessage());
+                header("HTTP/1.1 500 Internal Server Error");
+            }
+
+            // Query the database for users
+            $userQuery = $dbh->prepare("SELECT * FROM users WHERE email = :email AND password = :password LIMIT 1;");
+            $userQuery->bindParam(":email", $email, PDO::PARAM_STR);
+            $userQuery->bindParam(":password", $password, PDO::PARAM_INT);
+
+            $userQuery->execute();
+
+            $userRow = $userQuery->fetch(PDO::FETCH_ASSOC);
+            if($userRow) {
+                // Authenticated properly
+                $data = [
+                    'iss' => 'localhost',
+                    'exp' => time()+$expireTime,
+                    'id' => $userRow['id'],
+                    'email' => $email,
+                    'username' => $userRow['username'],
+                    'admin' => $userRow['admin']
+                ];
+
+                $jwt = JWT::encode($data, $secretKey, 'HS256');
 
 				header("Content-type: application/json");
 				echo json_encode(['token' => $jwt]);
-			}
+            }
 			else
 				header('HTTP/1.1 401 Unauthorised');
 		}
@@ -53,14 +57,5 @@ if(is_string($headerBody))
 	}
 	else
 		header("HTTP/1.1 401 Unauthorised");
-
-
-	// $file = fopen("post.txt", "w");
-	// fwrite($file, print_r($parsedBody, true));
-	// fclose($file);
-
 }
-// $file = fopen("headers.txt", "w");
-// fwrite($file, print_r(getallheaders(), true));
-// fclose($file);
 ?>

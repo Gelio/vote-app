@@ -1,0 +1,25 @@
+google
+
+Array
+(
+    [id] => 7
+    [username] => Grzegorz Rozdzialik
+    [email] => voreny.gelio@gmail.com
+    [password] => 
+    [admin] => 0
+)
+
+105517788380193106235Array
+(
+    [Host] => localhost
+    [Connection] => keep-alive
+    [Content-Length] => 175
+    [Accept] => application/json, text/plain, */*
+    [Origin] => http://localhost
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.93 Safari/537.36
+    [Content-Type] => application/json;charset=UTF-8
+    [Referer] => http://localhost/vote-app/index.html
+    [Accept-Encoding] => gzip, deflate
+    [Accept-Language] => pl-PL,pl;q=0.8,en-US;q=0.6,en;q=0.4
+    [Cookie] => __ngDebug=true
+)

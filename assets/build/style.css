@@ -61,3 +61,6 @@ a:hover {
   @media (min-width: 48em) {
     .login-info-text {
       text-align: right; } }
+
+.sidebar-oauth-sign-in {
+  margin: 10px 0; }

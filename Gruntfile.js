@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         },
 
         jshint: {
-            build: ['Gruntfile.js', 'assets/js/*.js']
+            build: ['Gruntfile.js', 'assets/js/*.js', 'assets/js/*/*.js']
         },
 
         sass: {
@@ -60,7 +60,8 @@ module.exports = function(grunt) {
         watch: {
             javascript: {
                 files: [
-                    'assets/js/*.js'
+                    'assets/js/*.js',
+                    'assets/js/*/*.js'
                 ],
 
                 tasks: ['compile-js'],
@@ -76,6 +77,16 @@ module.exports = function(grunt) {
                     spawn: false
                 }
             }
+        },
+
+        php: {
+            dist: {
+                options: {
+                    port: 80,
+                    keepalive: true,
+                    base: '..'
+                }
+            }
         }
     });
 
@@ -88,9 +99,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-scss-lint');
 
+    grunt.loadNpmTasks('grunt-php');
+
 
     grunt.registerTask('compile-js', ['clean:js', 'jshint'/*, 'uglify'*/]);
     grunt.registerTask('compile-scss', ['clean:css', 'scsslint', 'sass', 'autoprefixer', 'cssmin']);
     grunt.registerTask('default', ['compile-js', 'compile-scss']);
-
 };

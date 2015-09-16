@@ -8,7 +8,7 @@ sidebarModule.directive('sidebar', function() {
     };
 });
 
-sidebarModule.controller('sidebarCtrl', ['$scope', '$http', 'AuthFactory', function($scope, $http, AuthFactory) {
+sidebarModule.controller('sidebarCtrl', ['$scope', '$http', 'AuthService', function($scope, $http, AuthService) {
     $scope.credentials = {
         email: '',
         password: ''
@@ -16,7 +16,14 @@ sidebarModule.controller('sidebarCtrl', ['$scope', '$http', 'AuthFactory', funct
 
 
     $scope.login = function() {
-        AuthFactory.login($scope.credentials);
+        AuthService.login($scope.credentials, function() {
+            $scope.credentials.email = '';
+            $scope.credentials.password = '';
+        });
+    };
+
+    $scope.logTokenInfo = function() {
+        console.log(AuthService.getPayload(), AuthService.getToken());
     };
 
 }]);
