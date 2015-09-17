@@ -25,14 +25,31 @@ if(isset($_GET['provider'])) {
                 $googleProvider = new GoogleProvider($database, $user->getID(), $google_client);
                 $accessToken = $googleProvider->getAccessToken($code);
 
-                $googleProvider->retrieveData();
-                $googleProvider->save();
+                //$googleProvider->getDataFromDB();
+                $retrievedData = $googleProvider->retrieveData();
 
-                $user->fetchProviders();
+                // check if anyone has the same GoogleID and different user_id
+                $checkQuery = $database->prepare("SELECT id FROM google_users WHERE google_id = :googleID AND user_id != :userID LIMIT 1;");
+                $checkQuery->bindParam(":googleID", $retrievedData['id'], PDO::PARAM_INT);
+                $checkQuery->bindParam(":userID", $user->getID(), PDO::PARAM_INT);
+                $checkQuery->execute();
 
-                $jwt = $user->getJWT();
-                $headersHandler->sendJSONData(['token' => $jwt]);
-                $outputHandler->write($jwt);
+                if($checkQuery->rowCount() == 0) {
+                    // First time this google ID appeared in the DB
+                    $googleProvider->save();
+
+                    $user->fetchProviders();
+
+                    $jwt = $user->getJWT();
+                    $headersHandler->sendJSONData(['token' => $jwt]);
+                    $outputHandler->write($jwt);
+                }
+                else {
+                    // Someone is already using that account with other Vote App account
+                    $headersHandler->sendHeaderCode(401);
+                    $headersHandler->sendJSONData(['error' => "google account already in use"]);
+                    $outputHandler->write("google account ".$retrievedData['email']." already in use");
+                }
             }
             else {
                 // b from the list
