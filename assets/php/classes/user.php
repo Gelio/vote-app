@@ -121,7 +121,7 @@ class User
         $addQuery->bindParam(":admin", $this->admin, PDO::PARAM_BOOL);
         $addQuery->execute();
 
-        if($addQuery->errorCode() === NULL) {
+        if($addQuery->errorCode() === '00000') {
             $this->fetchUser($this->db->lastInsertId());
             return true;
         }

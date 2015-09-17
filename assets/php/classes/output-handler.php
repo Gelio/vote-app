@@ -5,7 +5,7 @@ class OutputHandler
     protected $file;
 
     public function __construct($filename = "output.txt") {
-        $this->file = fopen($filename, "w");
+        $this->file = fopen("output/".$filename, "w");
     }
 
     public function write($data) {

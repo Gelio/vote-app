@@ -1,11 +1,6 @@
 <?php
 /*
 New version - using classes
-    1. Check if the user is already authenticated
-        a) if yes - linking a provider to user's current account
-        b) otherwise - check if user already has authenticated with google before
-            i. if yes - log him in again
-            ii. otherwise - create a new account and log in
 */
 
 require_once("init.php");
@@ -14,6 +9,7 @@ $outputHandler = new OutputHandler("output-external-auth.txt");
 
 if(isset($_GET['provider'])) {
     $provider = $_GET['provider'];
+    $outputHandler->write($provider);
 
 
     switch($provider) {
@@ -25,9 +21,6 @@ if(isset($_GET['provider'])) {
             if($headersHandler->isAuthenticated()) {
                 // Link accounts
                 $user = new User($database, $headersHandler->getBearer());
-                //$outputHandler->write($user->getJWT(false));
-                //$headersHandler->sendHeaderCode(400);
-                //$headersHandler->sendJSONData(['token' => $user->getJWT()]);
 
                 $googleProvider = new GoogleProvider($database, $user->getID(), $google_client);
                 $accessToken = $googleProvider->getAccessToken($code);
@@ -42,9 +35,47 @@ if(isset($_GET['provider'])) {
                 $outputHandler->write($jwt);
             }
             else {
-                // Create a new account and log in
-                // TODO
-                $outputHandler->write("create a new account - TODO");
+                // b from the list
+
+                $googleProvider = new GoogleProvider($database, 0, $google_client);
+                $accessToken = $googleProvider->getAccessToken($code);
+                $userGoogleData = $googleProvider->retrieveData();
+
+                // Check if id from userGoogleData exists as google_id in google_users
+                $checkIDQuery = $database->prepare("SELECT id, user_id FROM google_users WHERE google_id = :googleID LIMIT 1;");
+                $checkIDQuery->bindParam(":googleID", $userGoogleData['id'], PDO::PARAM_INT);
+                $checkIDQuery->execute();
+
+                $checkIDData = $checkIDQuery->fetch(PDO::FETCH_ASSOC);
+
+                if($checkIDData) {
+                    // Already exists, log in existing user
+                    $user = new User($database);
+                    $user->fetchUser($checkIDData['user_id']);
+
+                    $jwt = $user->getJWT();
+                    $headersHandler->sendJSONData(['token' => $jwt]);
+                    $outputHandler->write($jwt);
+                }
+                else {
+                    // Does not exist, register user
+                    $user = new User($database);
+                    // putting in a placeholder password, BAD PRACTICE
+                    $user->newUser($userGoogleData['email'], $userGoogleData['name'], md5("a"));
+
+                    /// add Google as a provider
+                    $googleProvider->setUserID($user->getID());
+                    $googleProvider->setGoogleID($userGoogleData['id']);
+                    $googleProvider->getDataFromDB();
+                    $googleProvider->save();
+
+                    // refresh providers
+                    $user->fetchProviders();
+
+                    $jwt = $user->getJWT();
+                    $headersHandler->sendJSONData(['token' => $jwt]);
+                    $outputHandler->write($jwt);
+                }
             }
             break;
 

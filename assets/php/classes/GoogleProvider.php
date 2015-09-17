@@ -3,7 +3,7 @@
 class GoogleProvider {
     protected $db;
     protected $client;
-    protected $userID;
+    protected $userID = 0;
     protected $dbID = null;
     protected $googleID = null;
     protected $code = null;
@@ -23,7 +23,22 @@ class GoogleProvider {
             echo "client not given";
         }
 
+        $this->getDataFromDB();
+    }
+
+    public function setUserID($id) {
+        $this->userID = $id;
+    }
+
+    public function setGoogleID($googleID) {
+        $this->googleID = $googleID;
+    }
+
+    public function getDataFromDB() {
         // Checkes if user already authenticated with google
+        if($this->userID == 0)
+            return false;
+
         $checkQuery = $this->db->prepare("SELECT * FROM google_users WHERE user_id = :userID LIMIT 1;");
         $checkQuery->bindParam(":userID", $this->userID);
         $checkQuery->execute();
@@ -34,7 +49,10 @@ class GoogleProvider {
             $this->dbID = $checkData['id'];
             $this->googleID = $checkData['google_id'];
             $this->code = $checkData['code'];
+            return true;
         }
+        else
+            return false;
     }
 
     public function getAccessToken($code = null) {
