@@ -14,13 +14,12 @@
 
     //uiRouter
     app.config(['$stateProvider', '$urlRouterProvider', "$authProvider", function($stateProvider, $urlRouterProvider, $authProvider) {
-        var baseUrl = "http://localhost/vote-app/assets/php/";
-        $authProvider.loginUrl = baseUrl + 'login.php';
+        $authProvider.loginUrl = baseUrl + 'login2.php';
 
 
         // Auth0
         $authProvider.google({
-            url: baseUrl + 'external-auth.php?provider=google',
+            url: baseUrl + 'external-auth2.php?provider=google',
             clientId: '971255903327-u70mlh2duncr4sent7hc8f0j9s8lebld.apps.googleusercontent.com'
         });
 

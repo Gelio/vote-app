@@ -1,0 +1,2 @@
+{"username":"abcde","email":"vore@ea.pl","password":"abcde"}
+user registered successfully

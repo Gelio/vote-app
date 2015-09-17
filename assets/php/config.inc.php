@@ -11,4 +11,8 @@ $database = [
 ];
 
 $dbn = 'mysql:dbname='.$database['database'].';host='.$database['ip'].':'.$database['port'].";charset=UTF8";
+
+$providers = [
+    'google'
+];
 ?>

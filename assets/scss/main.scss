@@ -5,9 +5,13 @@
 body {
   background-color: $bg-color;
 
-  color: $text-color;
+  color: #000;
 
   font-family: 'Lora', serif;
+}
+
+.page-contents {
+  color: $text-color;
 }
 
 a:link,
@@ -23,3 +27,4 @@ a:hover {
 @import 'navigation';
 @import 'main-page';
 @import 'sidebar';
+@import 'sign-in';

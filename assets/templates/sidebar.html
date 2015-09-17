@@ -13,12 +13,12 @@
         </div>
 
         <div class="text-center">
-            <input type="submit" value="Log in" class="form-control inline-block" ng-click="login()">
+            <input type="submit" value="Log in" class="btn btn-success" ng-click="login()">
         </div>
     </form>
 
     <div class="sidebar-oauth-sign-in text-center">
-        <a ui-sref="sign-in" class="btn btn-primary-outline" role="button">Sign in with social media</a>
+        <a ui-sref="sign-in" class="btn btn-info" role="button">Sign in with social media</a>
     </div>
 </section>
 
@@ -28,6 +28,7 @@
         <h3>Hello {{authPayload.username}}</h3>
     </div>
     <ul>
+        <li><a ui-sref="sign-in">Link accounts</a></li>
         <li><a ui-sref="logout">Log out</a></li>
     </ul>
 </section>

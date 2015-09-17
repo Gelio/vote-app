@@ -1,8 +1,4 @@
 <?php
-require_once("../../vendor/autoload.php");
-require_once("config.inc.php");
-use \Firebase\JWT\JWT;
-
 class GoogleAuth
 {
     protected $client;
@@ -14,7 +10,7 @@ class GoogleAuth
             $this->client->setClientId('971255903327-u70mlh2duncr4sent7hc8f0j9s8lebld.apps.googleusercontent.com');
             $this->client->setClientSecret('q3rjhm8CSRPvExX46KcPZu3L');
             $this->client->setRedirectUri('http://localhost');
-            $this->client->setScopes(array('email', 'profile'));
+            //$this->client->setScopes(array('email', 'profile'));
         }
     }
 

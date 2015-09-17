@@ -1,10 +1,11 @@
 <?php
-require_once("../../vendor/autoload.php");
-require_once("config.inc.php");
-use \Firebase\JWT\JWT;
+/*
+========================================================================================
+					Broken version, not using classes, use login2.php
+========================================================================================
+*/
 
-
-require_once('cors-headers.inc.php');
+require_once("init.php");
 
 $headerBody = file_get_contents("php://input");
 if(is_string($headerBody))
@@ -41,7 +42,8 @@ if(is_string($headerBody))
                     'id' => $userRow['id'],
                     'email' => $email,
                     'username' => $userRow['username'],
-                    'admin' => $userRow['admin']
+                    'admin' => $userRow['admin'],
+					'authGoogle' => false
                 ];
 
                 $jwt = JWT::encode($data, $secretKey, 'HS256');

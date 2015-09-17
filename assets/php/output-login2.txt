@@ -1,0 +1,8 @@
+{"email":"abc@example.com","password":"abc"}
+successful login
+Array
+(
+    [token] => eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE0NDI1MTA1NjEsImlkIjoiMSIsImVtYWlsIjoiYWJjQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJWb3JlbnkiLCJhZG1pbiI6IjEiLCJhdXRoR29vZ2xlIjowfQ.ehldyTczQrFZTkME6m0_gzieiFSq6H6NbOeqeBDnYtI
+)
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE0NDI1MTA1NjEsImlkIjoiMSIsImVtYWlsIjoiYWJjQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJWb3JlbnkiLCJhZG1pbiI6IjEiLCJhdXRoR29vZ2xlIjowfQ.ehldyTczQrFZTkME6m0_gzieiFSq6H6NbOeqeBDnYtI

@@ -1,7 +1,7 @@
 <?php
 require_once("../../vendor/autoload.php");
 require_once("config.inc.php");
-require_once('GoogleAuth.php');
+require_once('classes/GoogleAuth.php');
 use \Firebase\JWT\JWT;
 
 
@@ -57,7 +57,8 @@ if(isset($_GET['provider']) && !empty($_GET['provider'])) {
                     'id' => $checkQueryResults['id'],
                     'email' => $checkQueryResults['email'],
                     'username' => $checkQueryResults['username'],
-                    'admin' => $checkQueryResults['admin']
+                    'admin' => $checkQueryResults['admin'],
+                    'authGoogle' => true
                 ];
 
                 $jwt = JWT::encode($data, $secretKey, 'HS256');

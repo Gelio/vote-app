@@ -25,8 +25,16 @@ angular.module('authService', ['satellizer']).
             $auth.logout();
         };
 
-        this.authenticate = function(provider) {
-            $auth.authenticate(provider);
+        this.authenticate = function(provider, successCallback, errorCallback) {
+            $auth.authenticate(provider)
+                .then(function(response) {
+                    if(successCallback)
+                        return successCallback(response);
+                })
+                .catch(function(error) {
+                    if(errorCallback)
+                        return errorCallback(error);
+                });
         };
 
         this.getPayload = function() {
@@ -45,5 +53,22 @@ angular.module('authService', ['satellizer']).
 
         this.isAuthenticated = function() {
             return $auth.isAuthenticated();
+        };
+
+        this.signIn = function(userData, callbackSuccess, callbackError) {
+            $http.post(baseUrl+"sign-up.php", userData)
+                .then(function(response) {
+                    // success
+                    console.log("success while registering user", response);
+
+                    if(callbackSuccess)
+                        return callbackSuccess(response);
+                }, function(error) {
+                    // error
+                    console.log("cannot register user", error);
+
+                    if(callbackError)
+                        return callbackError(error);
+                });
         };
     }]);
