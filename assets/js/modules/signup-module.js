@@ -1,5 +1,5 @@
-angular.module('signinModule', ['ui.router', 'authService'])
-    .controller('signinCtrl', ['$scope', '$state', 'AuthService', function($scope, $state, AuthService) {
+angular.module('signupModule', ['ui.router', 'authService'])
+    .controller('signupCtrl', ['$scope', '$state', 'AuthService', function($scope, $state, AuthService) {
         // Even existing users may want to link other accounts with their main account
         /*if(AuthService.isAuthenticated()) {
             console.log('user already authenticated tries to sign in');

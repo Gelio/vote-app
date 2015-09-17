@@ -6,7 +6,7 @@
         'mainModule',
         'sidebarModule',
         'logoutModule',
-        'signinModule',
+        'signupModule',
         'pollsModule'
     ];
     var app = angular.module('voteApp', modules);
@@ -37,10 +37,10 @@
                 templateUrl: 'assets/templates/logout.html',
                 controller: 'logoutCtrl'
             })
-            .state('sign-in', {
-                url: '/sign-in',
-                templateUrl: 'assets/templates/sign-in.html',
-                controller: 'signinCtrl'
+            .state('sign-up', {
+                url: '/sign-up',
+                templateUrl: 'assets/templates/sign-up.html',
+                controller: 'signupCtrl'
             })
             .state('polls', {
                 url: '/polls',
