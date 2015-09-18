@@ -4,6 +4,9 @@ Working version
 If successful - returns 'message' in a JSON object
 Otherwise - returns 'error' in a JSON object with a 401 Unauthorised code
 
+// TODO: check username's, email's and password's vailidity
+    currently it's only checked if they exist
+
 */
 require_once("init.php");
 
@@ -27,21 +30,21 @@ if($username && $email && $password) {
             // Email already exists
             $headersHandler->sendHeaderCode(401);
             $headersHandler->sendJSONData(['error' => "E-mail already registered"]);
-            $output->write("e-mail $email already exists");
+            $outputHandler->write("e-mail $email already exists");
         }
     }
     else {
         // Username already exists
         $headersHandler->sendHeaderCode(401);
         $headersHandler->sendJSONData(['error' => "Username already taken"]);
-        $output->write("username $username already taken");
+        $outputHandler->write("username $username already taken");
     }
 }
 else {
     // Credentials not given
     $headersHandler->sendHeaderCode(401);
     $headersHandler->sendJSONData(['error' => "Credentials not given"]);
-    $output->write("credentials not given");
+    $outputHandler->write("credentials not given");
 }
 
 ?>
