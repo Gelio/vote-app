@@ -75,14 +75,15 @@ class User
             // Via password
             $password = $arg1;
 
-            $findQuery = $this->db->prepare("SELECT * FROM users WHERE email = :email AND password = :password LIMIT 1;");
+            $findQuery = $this->db->prepare("SELECT * FROM users WHERE email = :email LIMIT 1;");
             $findQuery->bindParam(":email", $this->email, PDO::PARAM_STR);
-            $findQuery->bindParam(":password", $password, PDO::PARAM_STR);
+            // using hashing
+            //$findQuery->bindParam(":password", $password, PDO::PARAM_STR);
             $findQuery->execute();
 
             $findData = $findQuery->fetch(PDO::FETCH_ASSOC);
 
-            if($findData) {
+            if($findData && $this->verifyPassword($password, $findData['password'])) {
                 $this->authenticated = true;
                 $this->id = $findData['id'];
                 $this->username = $findData['username'];
@@ -97,6 +98,21 @@ class User
                 return false;
             }
         }
+    }
+
+    public function verifyPassword($password, $hash) {
+        if(password_verify($password, $hash)) {
+            if(password_needs_rehash($hash, PASSWORD_DEFAULT) && $this->id) {
+                $newHash = password_hash($password, PASSWORD_DEFAULT);
+                $updateQuery = $this->db->prepare("UPDATE users SET password = :password WHERE id = :id LIMIT 1;");
+                $updateQuery->bindParam(":password", $newHash);
+                $updateQuery->bindParam(":id", $this->id, PDO::PARAM_INT);
+                $updateQuery->execute();
+            }
+
+            return true;
+        }
+        return false;
     }
 
     public function fetchProviders() {
@@ -121,6 +137,8 @@ class User
 
         $this->email = $email;
         $this->username = $username;
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
         $addQuery = $this->db->prepare("INSERT INTO users (email, username, password, admin) VALUES (:email, :username, :password, :admin);");
         $addQuery->bindParam(":email", $this->email, PDO::PARAM_STR);
