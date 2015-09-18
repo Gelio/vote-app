@@ -101,9 +101,14 @@ class User
 
     public function fetchProviders() {
         $googleClient = new Google_Client;
+        $facebookProvider = new FacebookProvider($this->db, $this->id);
+        $facebookProvider->searchByUserID();
+
         $this->auth = [
-            'google' => new GoogleProvider($this->db, $this->id, $googleClient)
+            'google' => new GoogleProvider($this->db, $this->id, $googleClient),
+            'facebook' => $facebookProvider
         ];
+
     }
 
     public function isAuthenticated() {
@@ -111,11 +116,14 @@ class User
     }
 
     public function newUser($email, $username, $password) {
+        if(empty($email))
+            $email = "";
+
         $this->email = $email;
         $this->username = $username;
 
         $addQuery = $this->db->prepare("INSERT INTO users (email, username, password, admin) VALUES (:email, :username, :password, :admin);");
-        $addQuery->bindParam(":email", $this->email);
+        $addQuery->bindParam(":email", $this->email, PDO::PARAM_STR);
         $addQuery->bindParam(":username", $this->username);
         $addQuery->bindParam(":password", $password);
         $addQuery->bindParam(":admin", $this->admin, PDO::PARAM_BOOL);
@@ -126,7 +134,7 @@ class User
             return true;
         }
         else
-            return false;
+            return $addQuery->errorCode();
     }
 
     public function getJWT($encoded = true) {
@@ -141,6 +149,7 @@ class User
         ];
         // TODO: include providers in payload, for instance: authGoogle => false
         $data['authGoogle'] = $this->auth['google']->isAuthenticated();
+        $data['authFacebook'] = $this->auth['facebook']->isAuthenticated();
 
         $jwt = JWT::encode($data, $secretKey, 'HS256');
         $this->jwt = $jwt;

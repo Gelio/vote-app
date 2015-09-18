@@ -10,6 +10,7 @@ require_once("classes/headers-handler.php");
 require_once("classes/output-handler.php");
 
 require_once("classes/GoogleProvider.php");
+require_once("classes/FacebookProvider.php");
 
 require_once("classes/user.php");
 

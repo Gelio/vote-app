@@ -98,6 +98,98 @@ if(isset($_GET['provider'])) {
 
 
 
+        case "facebook":
+            $code = $headersHandler->getHeader('code');
+
+            $facebookClient = new FacebookProvider($database);
+
+            // TODO: fix here
+            $accessToken = $facebookClient->exchangeCodeForAccessToken(
+                $headersHandler->getHeader('clientId'),
+                $headersHandler->getHeader('redirectUri'),
+                $headersHandler->getHeader('code')
+            );
+            $facebookClient->setAccessToken($accessToken);
+            $facebookClient->extendAccessToken();
+
+            /*$facebookClient->retrieveAccessTokenFromRedirect();
+            $accessToken = $facebookClient->getAccessToken();*/
+
+            $userData = $facebookClient->getUserData();
+
+            $outputHandler->write("user data: ");
+            $outputHandler->write($userData);
+            $outputHandler->write("access token: ");
+            $outputHandler->write($accessToken);
+
+            if($headersHandler->isAuthenticated()) {
+                // Link accounts if not linked previously and facebookID does not repeat
+                $user = new User($database, $headersHandler->getBearer());
+
+                $facebookClient->setUserID($user->getID());
+
+                if($facebookClient->facebookIDRepeatsAmount() == 0) {
+                    // FacebookID does not exist in the FB yet, can link
+                    $facebookClient->save();
+
+                    // update JWT
+                    $user->fetchProviders();
+                    $jwt = $user->getJWT();
+
+                    $headersHandler->sendJSONData(['token' => $jwt]);
+                    $outputHandler->write('linking successful');
+                    $outputHandler->write($jwt);
+                }
+                else {
+                    // Duplicate id
+                    $headersHandler->sendHeaderCode(401);
+                    $headersHandler->sendJSONData(['error' => 'facebook id duplicate']);
+                    $outputHandler->write("facebook id duplicate");
+                }
+            }
+            else {
+                // Register and/or sign in
+                $facebookIDRepeats = $facebookClient->facebookIDRepeatsAmount();
+
+                if($facebookIDRepeats == 0) {
+                    // register
+                    $user = new User($database);
+                    $user->newUser($userData['email'], $userData['name'], md5($userData['email'].rand(0,100)));
+
+                    $facebookClient->setUserID($user->getID());
+                    $facebookClient->save();
+
+                    $user->fetchProviders();
+
+                    $jwt = $user->getJWT();
+
+                    $headersHandler->sendJSONData(['token' => $jwt]);
+                    $outputHandler->write('registered successfully');
+                    $outputHandler->write($jwt);
+                }
+                else if($facebookIDRepeats == 1) {
+                    // log in
+                    $facebookClient->searchByFacebookID();
+                    $facebookClient->setAccessToken($accessToken);
+                    $facebookClient->save();
+
+                    $user = new User($database);
+                    $user->fetchUser($facebookClient->getUserID());
+
+                    $jwt = $user->getJWT();
+
+                    $headersHandler->sendJSONData(['token' => $jwt]);
+                    $outputHandler->write('signed in successfully');
+                    $outputHandler->write($jwt);
+                }
+                else {
+                    // invalid number, report
+                    $headersHandler->sendHeaderCode(401);
+                    $headersHandler->sendJSONData(['error' => 'two or more users registered with the same facebook id']);
+                    $outputHandler->write("two or more users registered with the same facebook id");
+                }
+            }
+            break;
 
 
         default:

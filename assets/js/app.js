@@ -23,6 +23,11 @@
             clientId: '971255903327-u70mlh2duncr4sent7hc8f0j9s8lebld.apps.googleusercontent.com'
         });
 
+        $authProvider.facebook({
+            url: baseUrl + 'external-auth2.php?provider=facebook',
+            clientId: "1636616339940292"
+        });
+
 
         $urlRouterProvider.otherwise("/");
 
