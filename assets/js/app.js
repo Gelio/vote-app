@@ -2,6 +2,8 @@
     var modules = [
         'ui.router',
         'satellizer',
+        'ngAnimate',
+        'toaster',
         'authService',
         'mainModule',
         'sidebarModule',

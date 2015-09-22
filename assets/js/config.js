@@ -1,1 +1,1 @@
-var baseUrl = "http://localhost/vote-app/assets/php/";
+var baseUrl = "http://localhost/assets/php/";

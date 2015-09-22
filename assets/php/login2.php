@@ -13,7 +13,7 @@ $outputHandler->write($headersHandler->getHeaders(true));
 
 if($headersHandler->isAuthenticated()) {
     // if the user is already authenticated - do not login
-    $headersHandler(400);
+    $headersHandler->sendHeaderCode(400);
     $headersHandler->sendJSONData(['error' => "User already authenticated"]);
     $outputHandler->write("user already authenticated");
     die();
