@@ -29,7 +29,6 @@ class User
                 // JWT
                 $this->jwt = $arg1;
 
-                // TODO
                 $decodedJWT = JWT::decode($this->jwt, $secretKey, array('HS256'));
 
                 if($decodedJWT) {
@@ -165,7 +164,7 @@ class User
             'username' => $this->username,
             'admin' => $this->admin
         ];
-        // TODO: include providers in payload, for instance: authGoogle => false
+        // TODO: when adding more providers include them in payload, for instance: authGoogle => false
         $data['authGoogle'] = $this->auth['google']->isAuthenticated();
         $data['authFacebook'] = $this->auth['facebook']->isAuthenticated();
 

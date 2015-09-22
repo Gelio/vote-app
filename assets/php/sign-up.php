@@ -4,11 +4,10 @@ Working version
 If successful - returns 'message' in a JSON object
 Otherwise - returns 'error' in a JSON object with a 401 Unauthorised code
 
-// TODO: check username's, email's and password's vailidity
-    currently it's only checked if they exist
-
 */
 require_once("init.php");
+require_once("classes/credentialsValidation.php");
+use namespace Classes\Validation;
 
 $outputHandler = new OutputHandler("output-sign-up.txt");
 $outputHandler->write($headersHandler->getHeaders(true));
@@ -17,7 +16,7 @@ $username = $headersHandler->getHeader('username');
 $email = $headersHandler->getHeader('email');
 $password = $headersHandler->getHeader('password');
 
-if($username && $email && $password) {
+if(Validation::checkUsername($username) && Validation::checkEmail($email) && Validation::checkPassword($password)) {
     if(!$database->userNameExists($username)) {
         if(!$database->userEmailExists($email)) {
             $user = new User($database);

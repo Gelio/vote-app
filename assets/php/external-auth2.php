@@ -103,7 +103,6 @@ if(isset($_GET['provider'])) {
 
             $facebookClient = new FacebookProvider($database);
 
-            // TODO: fix here
             $accessToken = $facebookClient->exchangeCodeForAccessToken(
                 $headersHandler->getHeader('clientId'),
                 $headersHandler->getHeader('redirectUri'),
