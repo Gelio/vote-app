@@ -14,4 +14,12 @@ function Poll(name, votes) {
     votes.forEach(function(vote) {
         self.totalVotes += vote.amount;
     });
+
+
+    this.data = this.votes.map(function(option) { return option.amount});
+    this.labels = this.votes.map(function(option) { return option.name});
 }
+
+Poll.prototype.getName = function() {
+    return this.name;
+};

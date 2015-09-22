@@ -28,11 +28,13 @@
         <h3>Hello {{authPayload().username}}</h3>
     </div>
     <ul>
+        <li><a ui-sref="new-poll">New poll</a></li>
+        <li><a ui-sref="user-polls">Your polls</a></li>
         <li><a ui-sref="sign-up">Link accounts</a></li>
         <li><a ui-sref="logout">Log out</a></li>
     </ul>
 </section>
 
-{{isAuthenticated()}}
+<p class="m-t-lg">Authenticated: {{isAuthenticated()}}</p>
 
-<button role="button" ng-click="logTokenInfo()">Log token info</button>
+<button role="button" ng-click="logTokenInfo()" class="btn btn-primary">Log token info</button>

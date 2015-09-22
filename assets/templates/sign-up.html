@@ -8,11 +8,12 @@
     <!-- Facebook -->
     <button role="button" ng-click="authenticate('facebook')" class="btn btn-primary" ng-disabled="authPayload().authFacebook">Facebook</button>
 
+    <!-- TODO: include both Twitter and GitHub as authentication options -->
     <!-- Twitter -->
-    <button role="button" ng-click="authenticate('twitter')" class="btn btn-info" ng-disabled="authPayload().authTwitter">Twitter</button>
+    <!--<button role="button" ng-click="authenticate('twitter')" class="btn btn-info" ng-disabled="authPayload().authTwitter">Twitter</button>-->
 
     <!-- GitHub -->
-    <button role="button" ng-click="authenticate('github')" class="btn btn-warning" ng-disabled="authPayload().authGithub">GitHub</button>
+    <!--<button role="button" ng-click="authenticate('github')" class="btn btn-warning" ng-disabled="authPayload().authGithub">GitHub</button>-->
 </div>
 
 <div class="regular-sign-in m-t-lg" ng-show="!isAuthenticated()">

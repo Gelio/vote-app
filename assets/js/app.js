@@ -4,12 +4,14 @@
         'satellizer',
         'ngAnimate',
         'toaster',
+        'chart.js',
         'authService',
         'mainModule',
         'sidebarModule',
         'logoutModule',
         'signupModule',
-        'pollsModule'
+        'pollsModule',
+        'pollModule',
     ];
     var app = angular.module('voteApp', modules);
 

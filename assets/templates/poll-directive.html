@@ -1,0 +1,13 @@
+{{ poll.name }}
+
+<canvas class="chart chart-doughnut"
+        chart-data="poll.data"
+        chart-labels="poll.labels">
+
+</canvas>
+
+<ul>
+    <li ng-repeat="option in poll.votes">{{ option.name }} ({{ option.amount / poll.totalVotes * 100 | number}}%)</li>
+</ul>
+
+Total votes: {{ poll.totalVotes }}

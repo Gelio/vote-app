@@ -1,10 +1,10 @@
 <div class="popular-polls-wrapper clearfix m-b-lg">
     <div class="col-md-4 col-xs-12 text-center" ng-repeat="poll in popularPolls">
-        {{poll.name}} - total votes: {{poll.totalVotes}}
+        <div poll="poll"></div>
     </div>
 </div>
 
-<div class="login-info-wrapper row m-b-md">
+<div class="login-info-wrapper row m-b-md" ng-show="!isAuthenticated()">
     <div class="col-xs-12 col-md-10 login-info-text">
         <h2 class="login-cta">
             Create a new poll by logging in
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="register-info-wrapper row text-center">
+<div class="register-info-wrapper row text-center" ng-show="!isAuthenticated()">
     <h3>
         New to Vote App? <a ui-sref="sign-up">Sign up here <i class="fa fa-sign-in"></i></a>
     </h3>
