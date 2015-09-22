@@ -17,6 +17,10 @@ module.exports = function(grunt) {
         },
 
         cssmin: {
+            options: {
+                sourcemap: true
+            },
+
             build: {
                 files: {
                     'assets/build/style.min.css': 'assets/build/style.css'
