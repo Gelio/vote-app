@@ -1,9 +1,10 @@
-{{ poll.name }}
+<h2 class="text-center">
+    <a ui-sref="poll({pollID: poll.id})">{{ poll.question }}</a>
+</h2>
 
 <canvas class="chart chart-doughnut"
         chart-data="poll.data"
         chart-labels="poll.labels">
-
 </canvas>
 
 <ul>

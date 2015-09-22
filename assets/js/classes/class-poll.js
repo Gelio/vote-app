@@ -5,8 +5,9 @@ votes: [
 ]
  */
 
-function Poll(name, votes) {
-    this.name = name;
+function Poll(id, question, votes) {
+    this.id = id;
+    this.question = question;
     this.votes = votes;
     this.totalVotes = 0;
     var self = this;
@@ -19,7 +20,3 @@ function Poll(name, votes) {
     this.data = this.votes.map(function(option) { return option.amount});
     this.labels = this.votes.map(function(option) { return option.name});
 }
-
-Poll.prototype.getName = function() {
-    return this.name;
-};

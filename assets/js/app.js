@@ -55,6 +55,11 @@
                 url: '/polls',
                 templateUrl: 'assets/templates/polls.html',
                 controller: 'pollsCtrl'
+            })
+            .state('poll', {
+                url: '/poll/:pollID',
+                templateUrl: 'assets/templates/poll.html',
+                controller: 'pollCtrl'
             });
     }]);
 
