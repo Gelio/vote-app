@@ -4,7 +4,6 @@
 
 ## TODO ##
 * layout
-    * error display while signing in/linking accounts (modify signin-module.js and sign-in.html template) - use angular toaster
 * database
 * designing the whole voting system
 * graphing the results

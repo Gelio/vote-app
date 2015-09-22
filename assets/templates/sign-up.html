@@ -20,30 +20,30 @@
 
     <p ng-show="error.error" class="text-center">{{error.message}}</p>
 
-    <form name="signInForm" novalidate class="col-md-6 col-md-offset-3">
-        <fieldset class="form-group" ng-class="{'has-error': signInForm.username.$touched && signInForm.username.$invalid, 'has-success': signInForm.username.$dirty && signInForm.username.$valid}">
-            <input type="text" name="username" ng-minlength="3" ng-maxlength="50" required placeholder="Username" class="form-control" ng-model="signInData.username" ng-class="{'form-control-error': signInForm.username.$touched && signInForm.username.$invalid, 'form-control-success': signInForm.username.$touched && signInForm.username.$valid}" ng-change="error.error = false">
+    <form name="signUpForm" novalidate class="col-md-6 col-md-offset-3">
+        <fieldset class="form-group" ng-class="{'has-error': signUpForm.username.$touched && signUpForm.username.$invalid, 'has-success': signUpForm.username.$dirty && signUpForm.username.$valid}">
+            <input type="text" name="username" ng-minlength="3" ng-maxlength="50" required placeholder="Username" class="form-control" ng-model="signUpData.username" ng-class="{'form-control-error': signUpForm.username.$touched && signUpForm.username.$invalid, 'form-control-success': signUpForm.username.$touched && signUpForm.username.$valid}" ng-change="error.error = false">
 
-            <div ng-show="signInForm.username.$touched && signInForm.username.$invalid">
-                <span ng-show="signInForm.username.$error.minlength">Your username must be at least 3 characters long.</span>
-                <span ng-show="signInForm.username.$error.maxlength">Your username is too long.</span>
-                <span ng-show="signInForm.username.$error.required">A username is required to sign in.</span>
+            <div ng-show="signUpForm.username.$touched && signUpForm.username.$invalid">
+                <span ng-show="signUpForm.username.$error.minlength">Your username must be at least 3 characters long.</span>
+                <span ng-show="signUpForm.username.$error.maxlength">Your username is too long.</span>
+                <span ng-show="signUpForm.username.$error.required">A username is required to sign in.</span>
             </div>
         </fieldset>
 
-        <fieldset class="form-group" ng-class="{'has-error': signInForm.email.$touched && signInForm.email.$invalid, 'has-success': signInForm.email.$dirty && signInForm.email.$valid}">
-            <input type="email" name="email" required ng-maxlength="255" placeholder="E-mail address" class="form-control" ng-model="signInData.email" ng-class="{'form-control-error': signInForm.email.$touched && signInForm.email.$invalid, 'form-control-success': signInForm.email.$touched && signInForm.email.$valid}"  ng-change="error.error = false">
+        <fieldset class="form-group" ng-class="{'has-error': signUpForm.email.$touched && signUpForm.email.$invalid, 'has-success': signUpForm.email.$dirty && signUpForm.email.$valid}">
+            <input type="email" name="email" required ng-maxlength="255" placeholder="E-mail address" class="form-control" ng-model="signUpData.email" ng-class="{'form-control-error': signUpForm.email.$touched && signUpForm.email.$invalid, 'form-control-success': signUpForm.email.$touched && signUpForm.email.$valid}"  ng-change="error.error = false">
 
-            <div ng-show="signInForm.email.$touched && signInForm.email.$invalid">
-                <span ng-show="signInForm.email.$error.email">This is not a valid e-mail address.</span>
-                <span ng-show="signInForm.email.$error.maxlength">Your e-mail address is too long.</span>
-                <span ng-show="signInForm.email.$error.required">An e-mail address is required to sign in.</span>
+            <div ng-show="signUpForm.email.$touched && signUpForm.email.$invalid">
+                <span ng-show="signUpForm.email.$error.email">This is not a valid e-mail address.</span>
+                <span ng-show="signUpForm.email.$error.maxlength">Your e-mail address is too long.</span>
+                <span ng-show="signUpForm.email.$error.required">An e-mail address is required to sign in.</span>
             </div>
         </fieldset>
 
-        <fieldset class="form-group" ng-class="{'has-error': signInForm.password.$touched && signInForm.password.$invalid, 'has-success': signInForm.password.$dirty && signInForm.password.$valid}">
+        <fieldset class="form-group" ng-class="{'has-error': signUpForm.password.$touched && signUpForm.password.$invalid, 'has-success': signUpForm.password.$dirty && signUpForm.password.$valid}">
             <div class="input-group">
-                <input type="{{passwordVisible ? 'text' : 'password'}}" name="password" required ng-minlength="5" ng-maxlength="50" placeholder="Password" class="form-control" ng-model="signInData.password" ng-class="{'form-control-error': signInForm.password.$touched && signInForm.password.$invalid, 'form-control-success': signInForm.password.$touched && signInForm.password.$valid}" aria-describedby="show-password-addon"  ng-change="error.error = false">
+                <input type="{{passwordVisible ? 'text' : 'password'}}" name="password" required ng-minlength="5" ng-maxlength="50" placeholder="Password" class="form-control" ng-model="signUpData.password" ng-class="{'form-control-error': signUpForm.password.$touched && signUpForm.password.$invalid, 'form-control-success': signUpForm.password.$touched && signUpForm.password.$valid}" aria-describedby="show-password-addon"  ng-change="error.error = false">
 
                 <span class="input-group-addon" id="show-password-addon" ng-click="passwordVisible = !passwordVisible">
                     <i class="fa fa-eye-slash" ng-show="passwordVisible"></i>
@@ -51,15 +51,15 @@
                 </span>
             </div>
 
-            <div ng-show="signInForm.password.$touched && signInForm.password.$invalid">
-                <span ng-show="signInForm.password.$error.minlength">Your password must be at least 5 characters long.</span>
-                <span ng-show="signInForm.password.$error.maxlength">Your password is too long.</span>
-                <span ng-show="signInForm.password.$error.required">A password is required to sign in.</span>
+            <div ng-show="signUpForm.password.$touched && signUpForm.password.$invalid">
+                <span ng-show="signUpForm.password.$error.minlength">Your password must be at least 5 characters long.</span>
+                <span ng-show="signUpForm.password.$error.maxlength">Your password is too long.</span>
+                <span ng-show="signUpForm.password.$error.required">A password is required to sign in.</span>
             </div>
         </fieldset>
 
         <div class="col-xs-12 text-center">
-            <input type="submit" value="Sign in" class="btn btn-success" ng-disabled="signInForm.$invalid || error.error" ng-click="signIn()">
+            <input type="submit" value="Sign in" class="btn btn-success" ng-disabled="signUpForm.$invalid || error.error" ng-click="signUp()">
         </div>
     </form>
 </div>

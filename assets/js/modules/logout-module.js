@@ -1,5 +1,5 @@
 angular.module('logoutModule', ['ui.router', 'authService'])
-    .controller('logoutCtrl', ['$scope', '$state', 'AuthService', function($scope, $state, AuthService) {
+    .controller('logoutCtrl', ['$scope', '$state', 'AuthService', 'toaster', function($scope, $state, AuthService, toaster) {
         $scope.logoutState = 0;
 
         if(AuthService.isAuthenticated()) {
@@ -11,4 +11,5 @@ angular.module('logoutModule', ['ui.router', 'authService'])
             $scope.logoutState = 2;
             $state.go('main');
         }
+        toaster.pop('success', 'Logged out successfully');
     }]);

@@ -8,13 +8,13 @@ angular.module('authService', ['satellizer']).
         this.login = function(credentials, callbackSuccess, callbackError) {
             $auth.login(credentials)
                 .then(function(response) {
-                    console.log("successful", response);
+                    console.log("successful authentication", response);
 
                     if(callbackSuccess)
                         callbackSuccess(response);
                 })
                 .catch(function(error) {
-                    console.log("error", error);
+                    console.log("error while authenticating", error);
 
                     if(callbackError)
                         callbackError(error);

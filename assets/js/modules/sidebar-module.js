@@ -8,7 +8,7 @@ sidebarModule.directive('sidebar', function() {
     };
 });
 
-sidebarModule.controller('sidebarCtrl', ['$scope', '$http', 'AuthService', function($scope, $http, AuthService) {
+sidebarModule.controller('sidebarCtrl', ['$scope', '$http', 'toaster', 'AuthService', function($scope, $http, toaster, AuthService) {
     $scope.credentials = {
         email: '',
         password: ''
@@ -19,6 +19,9 @@ sidebarModule.controller('sidebarCtrl', ['$scope', '$http', 'AuthService', funct
         AuthService.login($scope.credentials, function() {
             $scope.credentials.email = '';
             $scope.credentials.password = '';
+            toaster.pop('success', 'Signed in successfully');
+        }, function (error) {
+            toaster.pop('error', 'Error while signing in', error.data.error);
         });
     };
 

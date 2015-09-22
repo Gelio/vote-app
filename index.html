@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="assets/build/style.min.css">
 </head>
 <body ng-controller="appCtrl">
+<!-- For toaster's messages -->
+<toaster-container toaster-options="{'close-button': true, 'position-class': 'toast-top-center', 'prevent-duplicates': true}"></toaster-container>
+
+
 <div class="container-fluid navigation-bar m-b-md">
     <nav class="container navbar">
         <a ui-sref="main" class="navbar-brand">Vote App</a>

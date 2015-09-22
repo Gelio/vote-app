@@ -1,2 +1,2 @@
-{"username":"Voreny1","email":"abcd@example.com","password":"abcde"}
+{"username":"asdasd","email":"oasfodsjfio@doasfdioa.pl","password":"sifjiodsjfsd"}
 user registered successfully
