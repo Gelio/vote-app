@@ -35,6 +35,9 @@ a:visited {
 a:hover {
   color: rgba(171, 205, 158, 0.87); }
 
+.voted-on {
+  color: rgba(238, 187, 85, 0.87); }
+
 .navigation-bar {
   background-color: #5457a6; }
 

@@ -1,1 +1,7 @@
-Single poll template
+<div ng-show="error">
+    <h1>An error occured</h1>
+
+    {{error.message}}
+</div>
+
+<div poll="poll" ng-show="poll" user-voted="userVoted"></div>

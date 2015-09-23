@@ -7,8 +7,9 @@
         chart-labels="poll.labels">
 </canvas>
 
+<!-- TODO: make them links and point them to adding a vote if authenticated -->
 <ul>
-    <li ng-repeat="option in poll.votes">{{ option.name }} ({{ option.amount / poll.totalVotes * 100 | number}}%)</li>
+    <li ng-repeat="option in poll.votes" ng-class="{'voted-on': option.id == userVoted}"> {{ option.name }} ({{ option.amount / poll.totalVotes * 100 | number}}%)</li>
 </ul>
 
 Total votes: {{ poll.totalVotes }}

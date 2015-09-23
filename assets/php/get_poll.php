@@ -1,5 +1,6 @@
 <?php
-use Classes\Polls;
+require_once("init.php");
+
 use \Firebase\JWT\JWT;
 
 $pollID = 0;
@@ -13,6 +14,15 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $pollID = $_GET['id'];
 
     $poll = new Poll($database, $pollID);
+
+    if(!$poll->valid()) {
+        $outputMessage['error'] = true;
+        $outputMessage['message'] = "Poll does not exist";
+        $headersHandler->sendHeaderCode(404);
+        $headersHandler->sendJSONData($outputMessage);
+        die();
+    }
+
     $poll->fetchOptions();
     $options = $poll->getOptions();
 
@@ -22,10 +32,11 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         'hasVoted' => false
     ];
 
-    foreach($option as $options) {
+    foreach($options as $option) {
         array_push($data['options'], [
-            'name' => $options->getName(),
-            'amount' => $options->getAmount()
+            'name' => $option->getName(),
+            'amount' => $option->getAmount(),
+            'id' => $option->getID()
         ]);
     }
 
@@ -35,10 +46,12 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         $decodedJWT = JWT::decode($jwt, $secretKey, array('HS256'));
 
         if($decodedJWT) {
-            $hasVoted = $poll->hasUserVoted($decodedJWT['id']);
+            $decodedArray = (array) $decodedJWT;
+            $hasVoted = $poll->hasUserVoted($decodedArray['id']);
 
-            if($hasVoted)
+            if($hasVoted) {
                 $data['hasVoted'] = $hasVoted->getID();
+            }
         }
     }
 

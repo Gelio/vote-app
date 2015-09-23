@@ -12,7 +12,8 @@ pollModule.directive('poll', function() {
         templateUrl: 'assets/templates/poll-directive.html',
         controller: 'pollDirectiveCtrl',
         scope: {
-            poll: '='
+            poll: '=',
+            userVoted: '='
         }
     };
 });

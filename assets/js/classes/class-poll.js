@@ -13,7 +13,7 @@ function Poll(id, question, votes) {
     var self = this;
 
     votes.forEach(function(vote) {
-        self.totalVotes += vote.amount;
+        self.totalVotes += parseInt(vote.amount);
     });
 
 

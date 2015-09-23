@@ -1,6 +1,5 @@
 <?php
 
-namespace Classes\Polls;
 
 class Poll {
     protected $db;
@@ -36,8 +35,10 @@ class Poll {
 
         $fetchData = $fetchQuery->fetch(PDO::FETCH_ASSOC);
 
-        if(!$fetchData)
-            throw new Exception("Poll with id {$this->pollID} does not exist");
+        if(!$fetchData) {
+            //throw new Exception("Poll with id {$this->pollID} does not exist");
+            return false;
+        }
 
         $this->userID = $fetchData['user_id'];
         $this->question = $fetchData['question'];
@@ -53,7 +54,7 @@ class Poll {
         $fetchQuery->bindParam(":pollID", $this->pollID, PDO::PARAM_INT);
         $fetchQuery->execute();
 
-        while(($fetchData = $fetchQuery->fetch(PDO::FETCH_ACCOC))) {
+        while(($fetchData = $fetchQuery->fetch(PDO::FETCH_ASSOC))) {
             array_push($this->options,
                 new Option($this->db, $fetchData['id'], $fetchData['poll_id'], $fetchData['name'], $fetchData['amount'])
             );
@@ -75,16 +76,22 @@ class Poll {
     }
 
     public function hasUserVoted($userID) {
-        $checkQuery = $this->db->prepare("SELECT option_id FROM votes WHERE user_id = :userID AND poll_id = :pollID LIMTI 1;");
+        $checkQuery = $this->db->prepare("SELECT option_id FROM votes WHERE user_id = :userID AND poll_id = :pollID LIMIT 1;");
         $checkQuery->bindParam(":userID", $userID, PDO::PARAM_INT);
         $checkQuery->bindParam(":pollID", $this->pollID, PDO::PARAM_INT);
         $checkQuery->execute();
 
         $checkData = $checkQuery->fetch(PDO::FETCH_ASSOC);
-        if($checkData)
-            return new Option($this->db, $checkData['id']);
+        if($checkData) {
+            return new Option($this->db, $checkData['option_id']);
+            //return $checkData['option_id'];
+        }
 
         return false;
+    }
+
+    public function valid() {
+        return ($this->userID ? true : false);
     }
 
 

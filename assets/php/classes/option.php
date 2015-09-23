@@ -1,6 +1,5 @@
 <?php
 
-namespace Classes\Polls;
 
 class Option {
     protected $db;
