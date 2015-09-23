@@ -17,6 +17,6 @@ function Poll(id, question, votes) {
     });
 
 
-    this.data = this.votes.map(function(option) { return option.amount});
-    this.labels = this.votes.map(function(option) { return option.name});
+    this.data = this.votes.map(function(option) { return option.amount;});
+    this.labels = this.votes.map(function(option) { return option.name;});
 }

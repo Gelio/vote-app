@@ -14,6 +14,10 @@ require_once("classes/FacebookProvider.php");
 
 require_once("classes/user.php");
 
+require_once("classes/option.php");
+require_once("classes/polls.php");
+
+
 
 require_once('cors-headers.inc.php');
 
